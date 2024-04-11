@@ -4,9 +4,9 @@ import { Polygon } from "typeorm";
 import { parseFromWK } from "wkt-parser-helper";
 
 export class PolygonDto {
-    @ApiProperty()
-    type = "Polygon";
-    @ApiProperty()
+    @ApiProperty({example: "Polygon"})
+    type: string = "Polygon";
+    @ApiProperty({type: [PointDto]})
     coordinates: PointDto[];
 
     constructor(wkt: any) {

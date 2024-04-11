@@ -23,9 +23,8 @@ export class PlacesService {
   async create(createPlaceDto: CreatePlaceDto) {
     const priceList = await this.priceListRepository.findOneBy({id: createPlaceDto.price_list_id});
     if (!priceList) {
-      throw new HttpException('Price list not found', 404);
+      throw new HttpException('Price list not found', 400);
     }
-    console.log(parseFromWK(createPlaceDto.wkt_string).coordinates);
     const place = this.repository.create({
       name_ar: createPlaceDto.name_ar,
       name_en: createPlaceDto.name_en,
@@ -80,11 +79,67 @@ export class PlacesService {
     );
   }
 
-  update(id: number, updatePlaceDto: UpdatePlaceDto) {
-    return `This action updates a #${id} place`;
+  async update(id: number, updatePlaceDto: UpdatePlaceDto) {
+    const place = await this.repository.findOne({
+      where: {id: id},
+      relations: ['price_list'],
+    });
+    if(!place) {
+      throw new HttpException('Place not found', 404);
+    }
+
+    if(updatePlaceDto.price_list_id) {
+      const priceList = await this.priceListRepository.findOneBy({id: updatePlaceDto.price_list_id});
+      if (!priceList) {
+        throw new HttpException('Price list not found', 404);
+      }
+      place.price_list = priceList;
+    }
+
+    if(updatePlaceDto.wkt_string) {
+      place.area = updatePlaceDto.wkt_string;
+    }
+
+    if(updatePlaceDto.name_ar) {
+      place.name_ar = updatePlaceDto.name_ar;
+    }
+
+    if(updatePlaceDto.name_en) {
+      place.name_en = updatePlaceDto.name_en;
+    }
+
+    if(updatePlaceDto.color) {
+      place.color = updatePlaceDto.color;
+    }
+
+    if(updatePlaceDto.z_index) {
+      place.z_index = updatePlaceDto.z_index;
+    }
+
+    await this.repository.save(place);
+
+    return new PlaceDto(
+      place.id,
+      place.name_ar,
+      place.name_en,
+      new PolygonDto(place.area),
+      place.color,
+      place.z_index,
+      new PriceListDto(place.price_list),
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} place`;
+  async remove(id: number) {
+    const place = await this.repository.findOneBy({
+      id: id,
+    });
+    if (!place) {
+      throw new HttpException('Place not found', 404);
+    }
+    await this.repository.remove(place);
+
+    return {
+      message: 'Deleted',
+    };
   }
 }

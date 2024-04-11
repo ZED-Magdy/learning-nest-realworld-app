@@ -11,9 +11,9 @@ export class PlaceDto {
     name_en: string;
     @ApiProperty()
     area: PolygonDto;
-    @ApiProperty()
+    @ApiProperty({ example: "#FFFFFF" })
     color: string;
-    @ApiProperty()
+    @ApiProperty({ example: 10 })
     z_index: number;
     @ApiProperty()
     priceList: PriceListDto;
