@@ -10,9 +10,9 @@ export class PriceList {
     @Column()
     @Unique(['name_en'])
     name_en: string;
-    @Column()
+    @Column("float")
     starting_cost: number;
-    @Column()
+    @Column("float")
     minute_cost: number;
     @CreateDateColumn()
     createdAt: Date;
