@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
 import { BrandsService } from './brands.service';
 import { CreateBrandDto } from './dto/create-brand.dto';
 import { UpdateBrandDto } from './dto/update-brand.dto';
@@ -10,27 +10,28 @@ export class BrandsController {
   constructor(private readonly brandsService: BrandsService) {}
 
   @Post()
-  create(@Body() createBrandDto: CreateBrandDto) {
-    return this.brandsService.create(createBrandDto);
+  @UsePipes(new ValidationPipe({ transform: true }))
+  async create(@Body() createBrandDto: CreateBrandDto) {
+    return await this.brandsService.create(createBrandDto);
   }
 
   @Get()
-  findAll() {
-    return this.brandsService.findAll();
+  async findAll() {
+    return await this.brandsService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.brandsService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return await this.brandsService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBrandDto: UpdateBrandDto) {
-    return this.brandsService.update(+id, updateBrandDto);
+  async update(@Param('id') id: string, @Body() updateBrandDto: UpdateBrandDto) {
+    return await this.brandsService.update(+id, updateBrandDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.brandsService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return await this.brandsService.remove(+id);
   }
 }

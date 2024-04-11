@@ -1,8 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { MinLength } from "class-validator";
 
 export class CreateBrandDto {
     @ApiProperty()
-    readonly name_ar: string;
+    @MinLength(3)
+    name_ar: string;
     @ApiProperty()
-    readonly name_en: string;
+    @MinLength(3)
+    name_en: string;
 }
