@@ -25,12 +25,12 @@ export class BrandsService {
     }
   }
 
-  async findAll() {
+  async findAll(): Promise<BrandDto[]> {
     const brands = await this.repository.find();
     return brands.map((brand) => new BrandDto(brand));
   }
 
-  async findOne(id: number) {
+  async findOne(id: number): Promise<BrandDto>{
     const brand = await this.repository.findOneBy({
       id: id,
     });
@@ -42,7 +42,7 @@ export class BrandsService {
     return new BrandDto(brand);
   }
 
-  async update(id: number, updateBrandDto: UpdateBrandDto) {
+  async update(id: number, updateBrandDto: UpdateBrandDto): Promise<BrandDto> {
     const brand = await this.repository.findOneBy({
       id: id,
     });
@@ -66,7 +66,7 @@ export class BrandsService {
     }
   }
 
-  async remove(id: number) {
+  async remove(id: number): Promise<{ message: string }> {
     const brand = this.repository.findOneBy({
       id: id,
     });
