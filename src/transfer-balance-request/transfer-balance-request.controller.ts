@@ -2,8 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { TransferBalanceRequestService } from './transfer-balance-request.service';
 import { CreateTransferBalanceRequestDto } from './dto/create-transfer-balance-request.dto';
 import { UpdateTransferBalanceRequestDto } from './dto/update-transfer-balance-request.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('transfer-balance-request')
+@ApiTags('Wallet')
 export class TransferBalanceRequestController {
   constructor(private readonly transferBalanceRequestService: TransferBalanceRequestService) {}
 

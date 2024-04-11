@@ -5,8 +5,8 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
   const config = new DocumentBuilder()
-    .setTitle('example')
-    .setDescription('The API description')
+    .setTitle('Scooter Rides API')
+    .setDescription('An API to manage scooter rides')
     .setVersion('1.0')
     .build();
     const app = await NestFactory.create<NestExpressApplication>(AppModule);
