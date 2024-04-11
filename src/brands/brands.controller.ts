@@ -12,14 +12,9 @@ export class BrandsController {
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
-  @ApiOkResponse({ description: 'Brand created successfully', 
-    schema:{
-      example: {
-        id: 1,
-        name_ar: 'ماركة 1',
-        name_en: 'Brand 1'
-      },
-    }
+  @ApiOkResponse({ 
+    type: BrandDto,
+    description: 'Brand created successfully', 
   })
   @ApiBadRequestResponse({ description: 'Bad request', schema:{
     example: {
@@ -33,35 +28,18 @@ export class BrandsController {
   }
 
   @Get()
-  @ApiOkResponse({ description: 'Brands fetched successfully', 
-    schema:{
-      example: [
-        {
-          id: 1,
-          name_ar: 'ماركة 1',
-          name_en: 'Brand 1'
-        },
-        {
-          id: 2,
-          name_ar: 'ماركة 2',
-          name_en: 'Brand 2'
-        }
-      ],
-    }
+  @ApiOkResponse({ 
+    type: [BrandDto],
+    description: 'Brands fetched successfully', 
   })
   async findAll() {
     return await this.brandsService.findAll();
   }
 
   @Get(':id')
-  @ApiOkResponse({ description: 'Brand fetched successfully', 
-    schema:{
-      example: {
-        id: 1,
-        name_ar: 'ماركة 1',
-        name_en: 'Brand 1'
-      },
-    }
+  @ApiOkResponse({ 
+    type: BrandDto,
+    description: 'Brand fetched successfully', 
   })
   @ApiNotFoundResponse({ description: 'Brand not found', schema:{
       example: {
@@ -77,14 +55,9 @@ export class BrandsController {
 
   @Patch(':id')
   @UsePipes(new ValidationPipe({ transform: true }))
-  @ApiOkResponse({ description: 'Brand updated successfully', 
-    schema:{
-      example: {
-        id: 1,
-        name_ar: 'ماركة 1',
-        name_en: 'Brand 1'
-      },
-    }
+  @ApiOkResponse({ 
+    type: BrandDto,
+    description: 'Brand updated successfully', 
   })
   @ApiNotFoundResponse({ description: 'Brand not found', schema:{
       example: {
