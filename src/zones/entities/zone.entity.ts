@@ -1,6 +1,6 @@
 import { Place } from "src/places/entities/place.entity";
-import { Column, CreateDateColumn, DeleteDateColumn, ManyToOne, Polygon, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, Polygon, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+@Entity()
 export class Zone {
     @PrimaryGeneratedColumn()
     id: number;

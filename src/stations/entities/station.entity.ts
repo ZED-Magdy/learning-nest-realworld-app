@@ -1,5 +1,5 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Point, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, Point, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+@Entity()
 export class Station {
     @PrimaryGeneratedColumn()
     id: number;

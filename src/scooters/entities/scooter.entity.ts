@@ -1,7 +1,7 @@
 import { Place } from "src/places/entities/place.entity";
 import { Ride } from "src/rides/entities/ride.entity";
-import { Column, CreateDateColumn, DeleteDateColumn, ManyToOne, Point, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, Point, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+@Entity()
 export class Scooter {
     @PrimaryGeneratedColumn()
     id: number;
