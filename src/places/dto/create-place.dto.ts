@@ -6,7 +6,7 @@ export class CreatePlaceDto {
     @ApiProperty()
     name_en: string;
     @ApiProperty()
-    wkt_string: string;
+    wkt_string: string|any;
     @ApiProperty()
     color: string;
     @ApiProperty()

@@ -4,7 +4,7 @@ import { DataSource, DataSourceOptions } from "typeorm";
 
 dotenvConfig({ path: '.env' });
 
-const config = {
+const config: DataSourceOptions = {
     type: process.env.DATABASE_TYPE as any,
     host: process.env.DATABASE_HOST,
     port: parseInt(process.env.DATABASE_PORT as string, 10) || 3306,
@@ -13,9 +13,9 @@ const config = {
     database: process.env.DATABASE_NAME,
     entities: ["dist/**/*.entity{.ts,.js}"],
     migrations: ["dist/migrations/*{.ts,.js}"],
-    autoLoadEntities: true,
     synchronize: false,
+    legacySpatialSupport: false,
 }
 
 export default registerAs('typeorm', () => config)
-export const connectionSource = new DataSource(config as DataSourceOptions);
+export const connectionSource = new DataSource(config);
