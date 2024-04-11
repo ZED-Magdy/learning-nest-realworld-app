@@ -61,8 +61,23 @@ export class PlacesService {
     ));
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} place`;
+  async findOne(id: number) {
+    const place = await this.repository.findOne({
+      where:{id: id},
+      relations: ['price_list'],
+    });
+    if (!place) {
+      throw new HttpException('Place not found', 404);
+    }
+    return new PlaceDto(
+      place.id,
+      place.name_ar,
+      place.name_en,
+      new PolygonDto(place.area),
+      place.color,
+      place.z_index,
+      new PriceListDto(place.price_list),
+    );
   }
 
   update(id: number, updatePlaceDto: UpdatePlaceDto) {
