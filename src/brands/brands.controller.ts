@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, Validation
 import { BrandsService } from './brands.service';
 import { CreateBrandDto } from './dto/create-brand.dto';
 import { UpdateBrandDto } from './dto/update-brand.dto';
-import { ApiBadRequestResponse, ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { BrandDto } from './dto/brand.dto';
 
 @Controller('brands')
@@ -12,7 +12,7 @@ export class BrandsController {
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
-  @ApiOkResponse({ 
+  @ApiCreatedResponse({ 
     type: BrandDto,
     description: 'Brand created successfully', 
   })
@@ -59,6 +59,13 @@ export class BrandsController {
     type: BrandDto,
     description: 'Brand updated successfully', 
   })
+  @ApiBadRequestResponse({ description: 'Bad request', schema:{
+    example: {
+      statusCode: 400,
+      message: 'Brand name must be unique',
+      error: 'Bad Request'
+    }
+  } })
   @ApiNotFoundResponse({ description: 'Brand not found', schema:{
       example: {
         statusCode: 404,
